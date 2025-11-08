@@ -23,9 +23,29 @@
  * @package Meloniq\GpRemoveTranslation
  */
 
+namespace Meloniq\GpRemoveTranslation;
+
 // If this file is accessed directly, then abort.
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 define( 'GPRTS_TD', 'gp-remove-translation' );
+define( 'GPRTS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+define( 'GPRTS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+
+/**
+ * GP Init Setup.
+ *
+ * @return void
+ */
+function gp_init() {
+	global $gprts_button;
+
+	require_once __DIR__ . '/src/class-ajax.php';
+	require_once __DIR__ . '/src/class-frontend.php';
+
+	$gprts_button['ajax']     = new Ajax();
+	$gprts_button['frontend'] = new Frontend();
+}
+add_action( 'gp_init', 'Meloniq\GpRemoveTranslation\gp_init' );
